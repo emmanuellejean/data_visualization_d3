@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+   
+  <style>
+     circle.dimple-series-1 {
+           fill:red;
+     }
+
+     h2 {
+          text-align: center;
+     }
+     div.sex_buttons {
+        position: fixed;
+        top: 175px;
+        left: 1100px;
+      }
+
+       div.sex_buttons div {
+        background-color: rgb(251, 201, 127);
+        padding: 3px;
+        margin: 7px;
+      }
+  </style>
+
+
+    <script type="text/javascript">
+     
+
+
+      function draw(data) {
+
+      /*
+        D3.js setup code
+      */
+
+          "use strict";
+          var margin = 75,
+              width = 1200 - margin,
+              height = 600 - margin;
+              
+           
+          d3.select("body")
+             .append("h2")
+             .append("text")
+             .text("Titanic Survivors and Victims : The numbers") ;
+
+          d3.select ("h2")
+             .append("h3")
+             .append("text")
+             .text("Comparison of number of persons who survived with the number of persons who perished during the Titanic disaster, by class, and by sex")
+             .style("color", "black")
+             .style("font-weight", "normal")
+             .style("font-size", "15px")
+               ;
+
+
+          var svg = d3.select("body")
+            .append("svg")
+              .attr("width", width + margin)
+              .attr("height", height + margin)
+            .append('g')
+                .attr('class','chart');
+
+      /*
+        Dimple.js first chart construction code
+      */
+
+          var myChart = new dimple.chart(svg, data);
+          var x = myChart.addCategoryAxis("x", "Pclass"); 
+          x.title = "Class"
+          var y = myChart.addMeasureAxis("y", "Name");
+          y.title = "Number of person"
+         
+          var serie = myChart.addSeries(  "Survivedlabel", dimple.plot.bar);
+          myChart.addLegend(60, 10, 510, 20, "right");
+          
+
+          
+          myChart.draw();
+
+          
+           /* 
+            function called when one click on one of the buttons
+        */
+          function update(sex) {
+            
+            
+            /*debugger;*/
+            
+            /* remove teh previous chart*/
+            var removeG = svg.selectAll("g");
+            removeG.remove();
+         
+
+            /*debugger;*/
+
+            /* 
+               filter data depending on the clicked button 
+            */
+            if (sex == "Male") {
+              var data_by_sex = dimple.filterData(data, "Sex", "male") ;
+              };
+            if (sex == "Female") {
+              var data_by_sex = dimple.filterData(data, "Sex", "female") ;
+              };
+            if (sex == "All") {
+              var data_by_sex = data;
+              };
+            /*
+               Create the new chart 
+            */
+            var newSexChart = new dimple.chart(svg, data_by_sex );
+            var x = newSexChart.addCategoryAxis("x", "Pclass"); 
+            x.title = "Class";
+            var y = newSexChart.addMeasureAxis("y", "Name");
+            y.title = "Number of " + sex +" persons";
+         
+            var serie = newSexChart.addSeries(  "Survivedlabel", dimple.plot.bar);
+            newSexChart.addLegend(60, 10, 510, 20, "right");
+          
+
+            
+            newSexChart.draw();
+
+          };      
+        
+            
+
+          /*
+            Set up the buttons 
+          */
+          var buttons = d3.select("body")
+                        .append("div")
+                        .attr("class", "sex_buttons")
+                        .selectAll("div")
+                        .data(["Male", "Female", "All"])
+                        .enter()
+                        .append("div")
+                        .text(function(d) {
+                            return d;
+                        });
+
+            buttons.on("click", function(d) {
+              d3.select(".sex_buttons")
+                      .selectAll("div")
+                      .transition()
+                      .duration(500)
+                      .style("color", "black")
+                      .style("background", "rgb(251, 201, 127)");
+
+
+
+              d3.select(this)
+                .transition()
+                .duration(500)
+                .style("background", "lightBlue")
+                .style("color", "white");
+              /*debugger;*/
+              update(d)
+            });
+
+
+        };
+      </script>
+  </head>
+<body>
+  <script type="text/javascript">
+  /*
+    Use D3 (not dimple.js) to load the CSV file
+    and pass the contents of it to the draw function
+    */
+  d3.csv("titanic_data.csv", function(d) {
+       d['Survivedlabel'] = d["Survived"].replace("0", "Victims");
+       d['Survivedlabel'] = d["Survivedlabel"].replace("1", "Survivors");
+       return d;
+
+  }, draw);
+  </script>
+</body>
+</html>
