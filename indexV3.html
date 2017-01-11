@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+   
+  <style>
+     circle.dimple-series-1 {
+           fill:red;
+     }
+
+     h2 {
+          text-align: center;
+     }
+     div.sex_buttons {
+        position: fixed;
+        top: 175px;
+        left: 1100px;
+
+      }
+
+       div.sex_buttons div {
+        background-color: rgb(212, 215, 222);
+        padding: 3px;
+        margin: 7px;
+        border-radius: 12px;
+      }
+  </style>
+
+
+    <script type="text/javascript">
+     
+
+     
+
+
+
+      function draw(data) {
+
+      /*
+        D3.js setup code
+      */
+
+          "use strict";
+          var margin = 75,
+              width = 1200 - margin,
+              height = 600 - margin;
+              
+           
+          d3.select("body")
+             .append("h2")
+             .append("text")
+             .text("Titanic Survivors and Victims : The numbers") ;
+
+          d3.select ("h2")
+             .append("h3")
+             .append("text")
+             .text("Comparison of number of persons who survived with the number of persons who perished during the Titanic disaster, by class, and by sex")
+             .style("color", "black")
+             .style("font-weight", "normal")
+             .style("font-size", "15px")
+               ;
+
+
+          var svg = d3.select("body")
+            .append("svg")
+              .attr("width", width + margin)
+              .attr("height", height + margin)
+            .append('g')
+                .attr('class','chart');
+
+
+
+      function addLabel(serie) {
+
+        serie.afterDraw = function (shape, data) {
+           // Get the shape as a d3 selection
+            
+            var s = d3.select(shape),
+            rect = {
+              x: parseFloat(s.attr("x")),
+              y: parseFloat(s.attr("y")),
+              width: parseFloat(s.attr("width")),
+              height: parseFloat(s.attr("height"))
+              };
+          // Add a text label for the value
+          
+             svg.append("text")
+               // Position in the centre of the shape (vertical position is
+              // manually set due to cross-browser problems with baseline)
+              .attr("x", rect.x + rect.width / 2)
+              .attr("y", rect.y + rect.height / 2 + 3.5)
+                // Centre align
+              .style("text-anchor", "middle")
+              .style("font-size", "10px")
+              .style("font-family", "sans-serif")
+            // Make it a little transparent to tone down the black
+              .style("opacity", 0.6)
+            // Format the number
+              .text(((data.yValue/total_Person_per_Class[data.cx-1])*100.00).toFixed(2) + "%");
+            
+
+           
+           };
+
+      };
+
+       
+
+
+
+      /*
+        Dimple.js first chart construction code
+      */
+
+          var myChart = new dimple.chart(svg, data);
+          var x = myChart.addCategoryAxis("x", "Class"); 
+          x.title = "Class";
+          x.fontSize = "15px";
+          var y = myChart.addMeasureAxis("y", "ToCount");
+          y.title = "";
+         
+          /*y.showPercent = true;
+           */
+          
+          var serie = myChart.addSeries(  "Status", dimple.plot.bar);
+          serie.addOrderRule("Status");
+          
+          
+
+          myChart.addLegend(60, 10, 510, 20, "right");
+          myChart.assignColor("Victims", "rgb(255, 102, 102)");
+          
+
+          /* 
+          Calcul of number of person by class for percentage displau
+        */
+          
+          var data_Class1 =  dimple.filterData(data, "Class", "1") ;
+          
+          var data_Class2 =  dimple.filterData(data, "Class", "2") ;
+          
+          var data_Class3 =  dimple.filterData(data, "Class", "3") ;
+          
+          var total_Person_per_Class = [data_Class1.length, data_Class2.length, data_Class3.length];
+
+
+          addLabel(serie);
+
+
+          /* 
+            adding label in the column
+        
+           serie.afterDraw = function (shape, data) {
+           // Get the shape as a d3 selection
+            debugger;
+            var s = d3.select(shape),
+            rect = {
+              x: parseFloat(s.attr("x")),
+              y: parseFloat(s.attr("y")),
+              width: parseFloat(s.attr("width")),
+              height: parseFloat(s.attr("height"))
+              };
+          // Add a text label for the value
+             svg.append("text")
+               // Position in the centre of the shape (vertical position is
+              // manually set due to cross-browser problems with baseline)
+              .attr("x", rect.x + rect.width / 2)
+              .attr("y", rect.y + rect.height / 2 + 3.5)
+                // Centre align
+              .style("text-anchor", "middle")
+              .style("font-size", "10px")
+              .style("font-family", "sans-serif")
+            // Make it a little transparent to tone down the black
+              .style("opacity", 0.6)
+            // Format the number
+              .text(data.yValue);
+           
+           };
+          */
+          
+         
+          
+
+          myChart.draw();
+
+      
+
+
+
+          
+           /* 
+            function called when one click on one of the buttons
+        */
+          function update(sex) {
+            
+            
+            /*debugger;*/
+            
+            /* remove the previous chart*/
+            var removeG = svg.selectAll("g");
+            removeG.remove();
+            var removeT = svg.selectAll("text");
+            removeT.remove();
+         
+
+            /*debugger;*/
+
+            /* 
+               filter data depending on the clicked button 
+            */
+            if (sex == "Male") {
+              var data_by_sex = dimple.filterData(data, "Sex", "male") ;
+              };
+            if (sex == "Female") {
+              var data_by_sex = dimple.filterData(data, "Sex", "female") ;
+              };
+            if (sex == "All") {
+              var data_by_sex = data;
+              };
+
+             
+            /*
+               Create the new chart 
+            */
+            var newSexChart = new dimple.chart(svg, data_by_sex );
+            var x = newSexChart.addCategoryAxis("x", "Class"); 
+            x.title = "Class";
+            x.fontSize = "15px";
+         
+            var y = newSexChart.addMeasureAxis("y", "ToCount");
+            /*y.showPercent = true;*/
+            y.title = ""
+            
+            var serie = newSexChart.addSeries(  "Status", dimple.plot.bar);
+            serie.addOrderRule("Status");
+
+            /* 
+                 Calcult of the new number of person by class for the percent display
+                 */
+            
+            total_Person_per_Class = [];
+            var data_Class1 =  dimple.filterData(data_by_sex, "Class", "1") ;
+          
+            var data_Class2 =  dimple.filterData(data_by_sex, "Class", "2") ;
+          
+            var data_Class3 =  dimple.filterData(data_by_sex, "Class", "3") ;
+          
+            total_Person_per_Class = [data_Class1.length, data_Class2.length, data_Class3.length];
+
+            addLabel(serie);
+
+            newSexChart.addLegend(60, 10, 510, 20, "right");
+            newSexChart.assignColor("Victims", "rgb(255, 102, 102)");
+          
+            
+            
+            newSexChart.draw();
+
+          };      
+        
+            
+
+          /*
+            Set up the buttons 
+          */
+          var buttons = d3.select("body")
+                        .append("div")
+                        .attr("class", "sex_buttons")
+                        .selectAll("div")
+                        .data(["Male", "Female", "All"])
+                        .enter()
+                        .append("div")
+                        .text(function(d) {
+                            return d;
+                        });
+
+            buttons.on("click", function(d) {
+              d3.select(".sex_buttons")
+                      .selectAll("div")
+                      .transition()
+                      .duration(500)
+                      .style("color", "black")
+                      .style("background","rgb(192, 192, 192)" );
+
+
+
+              d3.select(this)
+                .transition()
+                .duration(500)
+                .style("background", "rgb(212, 215, 222)")
+                .style("color", "white");
+              /*debugger;*/
+              update(d)
+            });
+
+
+        };
+      </script>
+  </head>
+<body>
+  <script type="text/javascript">
+  /*
+    Use D3 (not dimple.js) to load the CSV file
+    do some changes in the data to facilitate the creation of the chart :
+
+    and pass the contents of it to the draw function
+    */
+  d3.csv("titanic_data.csv", function(d) {
+       d['Status'] = d["Survived"].replace("0", "Victims");
+       d['Status'] = d["Status"].replace("1", "Survivors");
+       d['ToCount'] = 1;
+       d['Class'] = d['Pclass'];
+       return d;
+
+  }, draw);
+  </script>
+</body>
+</html>
