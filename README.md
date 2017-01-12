@@ -25,14 +25,26 @@ I deleted the y axis label
 
 3rd Version : IndexV3.html
 I return to the original barchart showing the number of persons instead of the percentage. 
+Added the percentage information in each barchar area, so both number and ratio are informed. 
+Changed the label in the tooltip
+
+4th version after the 3rd feeback: 
+Change of the text on the x-axis to be same size on the y-axis.
+Added a label on the y-axis.  
+Added a subtittle. 
+I consider switching to a greyscale as recommanded in my thirsd review because I like the idea as to be able to still understand when printed. But I did not want to lose the attractiveness of the color. So I decided to chose a red quite strong for the victims and to get a light blue for the survivors. If someone would print in black and white the graph, he'll be able to see the difference. 
 
 
 Feedback
-1st feed back:  
+1st feedback:  
 What is your story? I don't understand it when I look at your chart !
 If you want to compare information, first use proportion so I can compare 1st class to the 2nd and the 3rd class. 
 Label on the y axis are too small. 
 Add information in the charts.
+
+
+
+
 
 2nd feedback : 
 Dear Emanuelle,
@@ -55,6 +67,37 @@ If you want you could increase the attractiveness by adding transition effects w
 I hope these comments are helpful.
 
 All the best, Oliver
+
+
+
+
+3rd feedback : 
+Hi @emmanuelle_185407894:
+
+Thanks very much for the feedback on my visualization. Here are my comments on your work:
+
+I like your graphic. It conveys the key messages (the chance of survival was much greater for females and 1st class passengers) in a clear and logical manner. I also enjoyed the fact that I could toggle between 'male','female' and 'all'.
+
+Here are a few minor points (many of which are points of preference, so take them with a grain of salt):
+
+Consider making the font sizes of the two axes equal (the y-axis font is much smaller than the x)
+
+Consider a label on the y-axis (e.g. "Passengers", "Count", "Passenger Count" etc.)
+
+Have you tried looking at how the graph might look in grayscale, instead of the standard red / blue for dimple? I'm a big fan of grayscale, unless the color really serves a purpose. For example, look at the Quadrant I example here and note how it avoids color and still looks great:
+
+dataremixed.com
+
+Clarity or Aesthetics? Part 2 – A Tale of Four Quadrants | DataRemixed
+
+Previous Post (1 of 3): Data Visualization: Clarity or Aesthetics? Part 2 of 3: A Tale of Four Quadrants: In Part 1, we introduced the notion of a two dimensional plane on which a data [...]
+
+Another advantage of grayscale is the graph can still be interpreted if someone prints it out on a non-color printer. I'm not sure the blue / red color scheme would be.
+
+Consider adding a 2nd sentence to your subtitle that summarizes the key message (e.g. "By and large, 1st class female passengers survived and 3rd class male passengers perished".). I think it will add some punch to the subtitle and help focus your audience's attention on the key message, which they can then verify for themselves by playing with the graphic.
+Hope this helps and best of luck to you!
+
+Steve
 
 
 
