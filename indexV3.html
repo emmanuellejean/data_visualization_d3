@@ -93,7 +93,8 @@
               .attr("y", rect.y + rect.height / 2 + 3.5)
                 // Centre align
               .style("text-anchor", "middle")
-              .style("font-size", "10px")
+              .style("font-size", "12px")
+              .style("font-weight", "normal")
               .style("font-family", "sans-serif")
             // Make it a little transparent to tone down the black
               .style("opacity", 0.6)
@@ -118,7 +119,7 @@
           var x = myChart.addCategoryAxis("x", "Class"); 
           x.title = "Class";
           x.fontSize = "15px";
-          var y = myChart.addMeasureAxis("y", "ToCount");
+          var y = myChart.addMeasureAxis("y", "Number");
           y.title = "";
          
           /*y.showPercent = true;
@@ -129,7 +130,7 @@
           
           
 
-          myChart.addLegend(60, 10, 510, 20, "right");
+          myChart.addLegend(75, 10, 510, 20, "middle");
           myChart.assignColor("Victims", "rgb(255, 102, 102)");
           
 
@@ -229,7 +230,7 @@
             x.title = "Class";
             x.fontSize = "15px";
          
-            var y = newSexChart.addMeasureAxis("y", "ToCount");
+            var y = newSexChart.addMeasureAxis("y", "Number");
             /*y.showPercent = true;*/
             y.title = ""
             
@@ -237,7 +238,7 @@
             serie.addOrderRule("Status");
 
             /* 
-                 Calcult of the new number of person by class for the percent display
+                 Calcul of the new number of person by class for the percent display
                  */
             
             total_Person_per_Class = [];
@@ -310,7 +311,7 @@
   d3.csv("titanic_data.csv", function(d) {
        d['Status'] = d["Survived"].replace("0", "Victims");
        d['Status'] = d["Status"].replace("1", "Survivors");
-       d['ToCount'] = 1;
+       d['Number'] = 1;
        d['Class'] = d['Pclass'];
        return d;
 

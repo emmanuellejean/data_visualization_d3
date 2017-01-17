@@ -1,7 +1,7 @@
 Summary 
 Let's explore the number of survivors compared to the number of victim by class and by gender. 
 Data story: 
-People travelling in third class had much less chances of surviving during the Titanic catastroph. Let's see if that trend is the same by gender. 
+People travelling in third class had much less chances of surviving during the Titanic catastroph. Let's see if that trend is the same for the females and males of every classes. 
 I want to show how third class had much less survivors than the other classes and then emphasis the difference of survivors between gender. 
 
 
@@ -12,36 +12,35 @@ Design
 
 Let's start by a barchart showing the number of survivors and non survivors by class. 
 Most of the styling are default styling or the one used in class. 
-Three buttons on the righ allow the viewer to see the same barchart but for only men, or only women or come back to the initial barchart with all the gender. 
+Three buttons on the righ allow the viewer to see the same barchart but for only men, or only women or come back to the initial barchart with all the genders. 
 
 
 
 2nd Version : IndexV2.html
 
-From the first feedback, I need to change to a percentage of survivors/victims by class. Doing so We will lose the information that there is much more people in 3rd class than in 1st or 2nd. 
+From the first feedback, I need to change to a percentage of survivors/victims by class. Doing so We will lose the information that there is much more people in 3rd class than in 1st or 2nd, but we have a clear understanding of the ratio of survivors vs victims. 
 I realized that the color of the victims and survivors changed depending on which button is clicked. 
 I changed the color of the buttons to a more neutral color and added a more rounded rectangle.
-I deleted the y axis label
+I deleted the y axis label as percentahe are informed in every barchart.
 
 3rd Version : IndexV3.html
-I return to the original barchart showing the number of persons instead of the percentage. 
-Added the percentage information in each barchar area, so both number and ratio are informed. 
-Changed the label in the tooltip
+I returned to the original barchart showing the number of persons instead of the percentage. 
+Then I added the percentage information in each barchar areas, so I solve my problem and show both numbers and ratio on the same graph. 
+I changed the labels in the tooltip to make them more user meaningful. 
 
 4th version after the 3rd feeback: 
 Change of the text on the x-axis to be same size on the y-axis.
-Added a label on the y-axis.  
-Added a subtittle. 
-I consider switching to a greyscale as recommanded in my thirsd review because I like the idea as to be able to still understand when printed. But I did not want to lose the attractiveness of the color. So I decided to chose a red quite strong for the victims and to get a light blue for the survivors. If someone would print in black and white the graph, he'll be able to see the difference. 
+Added back the label on the y-axis.  
+Added a subtittle to state a more defined point of view. 
+I considered switching to a greyscale as recommanded in my third review because I like the idea as to be able to still understand when printed. But I did not want to lose the attractiveness of the color. So I decided to chose a red quite strong for the victims and to get a light blue for the survivors. If someone would print in black and white the graph, he will be able to see the differences. 
 
 
 Feedback
-1st feedback:  
+1st feedback:  a friend 
 What is your story? I don't understand it when I look at your chart !
 If you want to compare information, first use proportion so I can compare 1st class to the 2nd and the 3rd class. 
 Label on the y axis are too small. 
 Add information in the charts.
-
 
 
 
